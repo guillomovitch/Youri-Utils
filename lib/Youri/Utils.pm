@@ -20,6 +20,7 @@ our @EXPORT = qw(
     send_mail
     create_instance
     get_rpm
+    analysis
 );
 
 =head2 send_mail(I<$config>, I<$mail>)
@@ -88,6 +89,24 @@ sub get_rpm {
     my $urpm = URPM->new();
     $urpm->parse_rpm($file, keep_all_tags => 1);
     return $urpm->{depslist}->[0];
+}
+
+sub analysis {
+    my ($package) = @_;
+
+    my $arch = $package->arch();
+
+    my ($name, $unit);
+    if ($arch eq 'src') {
+	$name = $package->name();
+	$unit = $name;
+    } else {
+	$package->sourcerpm() =~ /^(\S+)-[^-]+-[^-]+\.src\.rpm$/;
+	$name = $1;
+	$unit = $package->name();
+    }
+
+    return $name, $arch, $unit;
 }
 
 1;
