@@ -53,26 +53,23 @@ Returns the class instance.
 =cut
 
 sub create_instance {
-    my ($prefix, $string) = @_;
-    return unless $string;
-    my ($module, $options) = $string =~ /(\w+)(?:\((.+)\))?/;
-    # format options
-    my @options;
-    if ($options) {
-	$options =~ s/^\s+//;
-	$options =~ s/\s+$//;
-	@options = split(/,\s*|\s*=>\s*/, $options);
-    } else {
-	@options = ();
-    }
+    my (%options) = @_;
+
+    return unless $options{class};
+
+    # extract class from options
+    my $class = $options{class};
+    delete $options{class};
+
     # ensure loaded
-    my $file = $prefix . '::' . $module . '.pm';
+    my $file = $class;
+    $file .= '.pm';
     $file =~ s/::/\//g;
     require $file;
+
     # instantiate
     no strict 'refs';
-    my $class = $prefix . '::' . $module;
-    return $class->new(@options);
+    return $class->new(%options);
 }
 
 =head2 get_rpm(I<$file>)
