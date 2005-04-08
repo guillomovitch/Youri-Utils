@@ -13,13 +13,32 @@ This module implement some helper functions for all youri applications.
 
 use base qw(Exporter);
 use Carp;
+use URPM;
 use strict;
 use warnings;
 
 our @EXPORT = qw(
+    get_rpm
     send_mail
     create_instance
 );
+
+=head2 get_rpm(I<$file>)
+
+Get a rpm object from a file.
+I<$file> is the rpm file.
+Returns an URPM::Package object.
+
+=cut
+
+sub get_rpm {
+    my ($file) = @_;
+
+    my $urpm = URPM->new();
+    $urpm->parse_rpm($file, keep_all_tags => 1);
+    return $urpm->{depslist}->[0];
+}
+
 
 =head2 send_mail(I<$mail>, I<$path>, I<$test>)
 
