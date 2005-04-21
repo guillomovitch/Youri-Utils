@@ -79,6 +79,18 @@ sub create_instance {
     my $class = $options{class};
     delete $options{class};
 
+    # create hashes and array
+    foreach my $value (grep { /^\[.*\]$/ } values %options) {
+	$value =~ s/^\[\s*//;
+	$value =~ s/\s*\]$//;
+	$value = [ split(/\s*,\s*/, $value) ];
+    }
+    foreach my $value (grep { /^{.*}$/ } values %options) {
+	$value =~ s/^{\s*//;
+	$value =~ s/\s*}$//;
+	$value = { split(/\s*(?:=>|,)\s*/, $value) };
+    }
+
     # ensure loaded
     my $file = $class;
     $file .= '.pm';
