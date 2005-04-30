@@ -13,7 +13,8 @@ WriteMakefile(
         'Expect'       => 0,
         'AppConfig'    => 0,
         'XML::RSS'     => 0,
-        'MIME::Entity' => 0
+        'MIME::Entity' => 0,
+        'SOAP::Lite'   => 0
     }
 
 );
