@@ -5,7 +5,7 @@ WriteMakefile(
     NAME       => 'youri',
     VERSION    => 0.1,
     AUTHOR     => 'Guillaume Rousse <guillomovitch@zarb.org>',
-    EXE_FILES  => [ 'bin/rpmcheck', 'bin/rpmupload', 'bin/genhdlist' ],
+    EXE_FILES  => [ 'bin/rpmcheck', 'bin/genhdlist' ],
     PREREQ_PM  => {
         'AppConfig'       => 0,
         'CGI'             => 0,
