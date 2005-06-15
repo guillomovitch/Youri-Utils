@@ -79,13 +79,15 @@ sub create_instance {
     # extract class from options
     my $class = $options{class};
     delete $options{class};
-    die "$class is not a $expected_class" unless $class->isa($expected_class);
 
     # ensure loaded
     my $file = $class;
     $file .= '.pm';
     $file =~ s/::/\//g;
     require $file;
+
+    # check interface
+    die "$class is not a $expected_class" unless $class->isa($expected_class);
 
     # instantiate
     no strict 'refs';
