@@ -71,13 +71,15 @@ Returns the class instance.
 =cut
 
 sub create_instance {
-    my (%options) = @_;
+    my ($expected_class, %options) = @_;
 
-    return unless $options{class};
+    die 'No expected class given' unless $expected_class;
+    die 'No class given' unless $options{class};
 
     # extract class from options
     my $class = $options{class};
     delete $options{class};
+    die "$class is not a $expected_class" unless $class->isa($expected_class);
 
     # ensure loaded
     my $file = $class;
