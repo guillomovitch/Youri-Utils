@@ -21,6 +21,8 @@ our @EXPORT = qw(
     get_rpm
     send_mail
     create_instance
+    add2hash
+    add2hash_
 );
 
 =head2 get_rpm(I<$file>)
@@ -93,5 +95,11 @@ sub create_instance {
     no strict 'refs';
     return $class->new(%options);
 }
+
+# structure helpers
+
+sub add2hash  { my ($a, $b) = @_; while (my ($k, $v) = each %{$b || {}}) { $a->{$k} ||= $v } $a }
+sub add2hash_ { my ($a, $b) = @_; while (my ($k, $v) = each %{$b || {}}) { exists $a->{$k} or $a->{$k} = $v } $a }
+
 
 1;
