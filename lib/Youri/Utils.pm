@@ -48,7 +48,7 @@ object I<$package>.
 =cut
 
 sub get_canonical_name {
-    my ($self, $package) = @_;
+    my ($package) = @_;
 
     my $arch = $package->arch();
     my $name;
