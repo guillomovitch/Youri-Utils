@@ -18,7 +18,6 @@ use strict;
 use warnings;
 
 our @EXPORT = qw(
-    get_rpm
     get_canonical_name
     send_mail
     create_instance
@@ -32,13 +31,13 @@ Returns an URPM::Package object corresponding to file I<$file>.
 
 =cut
 
-sub get_rpm {
-    my ($file) = @_;
-
-    my $urpm = URPM->new();
-    $urpm->parse_rpm($file, keep_all_tags => 1);
-    return $urpm->{depslist}->[0];
-}
+# sub get_rpm {
+#     my ($file) = @_;
+# 
+#     my $urpm = URPM->new();
+#     $urpm->parse_rpm($file, keep_all_tags => 1);
+#     return $urpm->{depslist}->[0];
+# }
 
 =head2 get_canonical_name(I<$package>)
 
@@ -97,7 +96,7 @@ sub create_instance {
     my ($expected_class, %options) = @_;
 
     die 'No expected class given' unless $expected_class;
-    die 'No class given' unless $options{class};
+    die "No class given, expected derivated class from '$expected_class'" unless $options{class};
 
     # extract class from options
     my $class = $options{class};
