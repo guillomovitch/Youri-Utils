@@ -37,11 +37,11 @@ sub send_mail {
     my ($mail, $path, $test) = @_;
 
     if ($test) {
-	$mail->print(\*STDOUT);
+        $mail->print(\*STDOUT);
     } else {
-	open(MAIL, "| $path -t -oi -oem") or die "Can't open MTA program: $!";
-	$mail->print(\*MAIL);
-	close MAIL;
+        open(MAIL, "| $path -t -oi -oem") or die "Can't open MTA program: $!";
+        $mail->print(\*MAIL);
+        close MAIL;
     }
 }
 
