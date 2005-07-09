@@ -18,49 +18,11 @@ use strict;
 use warnings;
 
 our @EXPORT = qw(
-    get_canonical_name
     send_mail
     create_instance
     add2hash
     add2hash_
 );
-
-=head2 get_rpm(I<$file>)
-
-Returns an URPM::Package object corresponding to file I<$file>.
-
-=cut
-
-# sub get_rpm {
-#     my ($file) = @_;
-# 
-#     my $urpm = URPM->new();
-#     $urpm->parse_rpm($file, keep_all_tags => 1);
-#     return $urpm->{depslist}->[0];
-# }
-
-=head2 get_canonical_name(I<$package>)
-
-Returns canonical name (aka name of the source package) for URPM::Package
-object I<$package>. 
-
-=cut
-
-sub get_canonical_name {
-    my ($package) = @_;
-
-    my $arch = $package->arch();
-    my $name;
-
-    if ($arch eq 'src') {
-       $name = $package->name();
-    } else {
-       $package->sourcerpm() =~ /^(\S+)-[^-]+-[^-]+\.src\.rpm$/;
-       $name = $1;
-    }
-
-    return $name;
-}
 
 =head2 send_mail(I<$mail>, I<$path>, I<$test>)
 
