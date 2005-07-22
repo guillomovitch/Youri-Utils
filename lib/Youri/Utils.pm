@@ -13,7 +13,6 @@ This module implement some helper functions for all youri applications.
 
 use base qw(Exporter);
 use Carp;
-use URPM;
 use strict;
 use warnings;
 
