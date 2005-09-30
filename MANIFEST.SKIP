@@ -1,4 +1,5 @@
 CVS/.*
+\.svn/.*
 ^cover_db/
 ^blib/
 \.bak$
