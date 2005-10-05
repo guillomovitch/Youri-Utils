@@ -19,6 +19,7 @@ use warnings;
 our @EXPORT = qw(
     send_mail
     create_instance
+    load
     add2hash
     add2hash_
 );
@@ -64,10 +65,7 @@ sub create_instance {
     delete $options{class};
 
     # ensure loaded
-    my $file = $class;
-    $file .= '.pm';
-    $file =~ s/::/\//g;
-    require $file;
+    load($class);
 
     # check interface
     die "$class is not a $expected_class" unless $class->isa($expected_class);
@@ -75,6 +73,14 @@ sub create_instance {
     # instantiate
     no strict 'refs';
     return $class->new(%options);
+}
+
+sub load {
+    my ($class) = @_;
+
+    $class .= '.pm';
+    $class =~ s/::/\//g;
+    require $class;
 }
 
 # structure helpers
