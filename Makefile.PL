@@ -4,7 +4,7 @@ use ExtUtils::MakeMaker;
 WriteMakefile(
     NAME       => 'youri',
     VERSION    => 0.1,
-    AUTHOR     => 'Guillaume Rousse <guillomovitch@zarb.org>',
+    AUTHOR     => 'Youri project <youri@zarb.org>',
     EXE_FILES  => [ 'bin/rpmcheck', 'bin/genhdlist' ],
     PREREQ_PM  => {
         'AppConfig'       => 0,
