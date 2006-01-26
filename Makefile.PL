@@ -5,7 +5,7 @@ WriteMakefile(
     NAME       => 'youri',
     VERSION    => 0.1,
     AUTHOR     => 'Youri project <youri@zarb.org>',
-    EXE_FILES  => [ 'bin/rpmcheck', 'bin/genhdlist' ],
+    EXE_FILES  => [ 'bin/youri-check', 'bin/youri-upload' ],
     PREREQ_PM  => {
         'AppConfig'       => 0,
         'CGI'             => 0,
