@@ -63,8 +63,21 @@ sub load {
 
 # structure helpers
 
-sub add2hash  { my ($a, $b) = @_; while (my ($k, $v) = each %{$b || {}}) { $a->{$k} ||= $v } $a }
-sub add2hash_ { my ($a, $b) = @_; while (my ($k, $v) = each %{$b || {}}) { exists $a->{$k} or $a->{$k} = $v } $a }
+sub add2hash  {
+    my ($a, $b) = @_;
+    while (my ($k, $v) = each %{$b || {}}) {
+        $a->{$k} ||= $v;
+    }
+    return $a;
+}
+
+sub add2hash_ {
+    my ($a, $b) = @_;
+    while (my ($k, $v) = each %{$b || {}}) {
+        exists $a->{$k} or $a->{$k} = $v;
+    }
+    return $a;
+}
 
 =head1 COPYRIGHT AND LICENSE
 
