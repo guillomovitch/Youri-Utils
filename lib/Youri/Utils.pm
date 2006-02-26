@@ -17,33 +17,11 @@ use strict;
 use warnings;
 
 our @EXPORT = qw(
-    send_mail
     create_instance
     load
     add2hash
     add2hash_
 );
-
-=head2 send_mail(I<$mail>, I<$path>, I<$test>)
-
-Send a mail.
-I<$mail> is a Mime::Entity object representing the mail itself.
-I<$path> is the path to the MTA.
-I<$test> is a test flag.
-
-=cut
-
-sub send_mail {
-    my ($mail, $path, $test) = @_;
-
-    if ($test) {
-        $mail->print(\*STDOUT);
-    } else {
-        open(MAIL, "| $path -t -oi -oem") or die "Can't open MTA program: $!";
-        $mail->print(\*MAIL);
-        close MAIL;
-    }
-}
 
 =head2 create_instance(class => I<$class>, I<%options>)
 
