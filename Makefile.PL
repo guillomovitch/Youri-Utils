@@ -33,9 +33,9 @@ sub install {
     $install =~ s/install :: all pure_install doc_install/install :: all pure_install doc_install config_install completion_install/;
     $install .= <<'EOF';
 config_install :
-	install -d -m 755 $(DESTDIR)$(SYSCONFDIR)
-	install -m 644 etc/check.conf $(DESTDIR)$(SYSCONFDIR)
-	install -m 644 etc/upload.conf $(DESTDIR)$(SYSCONFDIR)
+	install -d -m 755 $(DESTDIR)$(SYSCONFDIR)/youri
+	install -m 644 etc/check.conf $(DESTDIR)$(SYSCONFDIR)/youri
+	install -m 644 etc/upload.conf $(DESTDIR)$(SYSCONFDIR)/youri
 
 completion_install :
 	install -d -m 755 $(DESTDIR)$(SYSCONFDIR)/bash_completion.d
