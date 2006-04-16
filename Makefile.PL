@@ -7,9 +7,10 @@ WriteMakefile(
     AUTHOR     => 'Youri project <youri@zarb.org>',
     EXE_FILES  => [ 'bin/youri-check', 'bin/youri-upload' ],
     PREREQ_PM  => {
-        'AppConfig' => 0,
-        'YAML'      => 0,
-        'DateTime'  => 0,
+        'AppConfig'              => 0,
+        'YAML'                   => 0,
+        'DateTime'               => 0,
+        'Pod::Simple::HTMLBatch' => 0
     }
 );
 
@@ -25,6 +26,18 @@ sub post_constants {
     return <<EOF;
 SYSCONFDIR = $sysconfdir
 EOF
+}
+
+sub top_targets {
+    my ($self) = @_;
+    my $top_targets = $self->SUPER::top_targets(@_);
+    $top_targets =~ s/all :: pure_all manifypods/all :: pure_all manifypods htmlifypods/;
+    $top_targets .= <<'EOF';
+htmlifypods : $(TO_INST_PM)
+	mkdir blib/html
+	perl -MPod::Simple::HTMLBatch -e Pod::Simple::HTMLBatch::go lib blib/html
+EOF
+     return $top_targets;
 }
 
 sub install {
