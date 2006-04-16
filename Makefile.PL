@@ -34,8 +34,10 @@ sub top_targets {
     $top_targets =~ s/all :: pure_all manifypods/all :: pure_all manifypods htmlifypods/;
     $top_targets .= <<'EOF';
 htmlifypods : $(TO_INST_PM)
-	mkdir blib/html
+	if [ ! -d blib/html ]; then mkdir blib/html; fi
 	perl -MPod::Simple::HTMLBatch -e Pod::Simple::HTMLBatch::go lib blib/html
+	-perl -MPod::Simple::HTML -e Pod::Simple::HTML::go bin/youri-check blib/html/youri-check.html
+	-perl -MPod::Simple::HTML -e Pod::Simple::HTML::go bin/youri-upload blib/html/youri-upload.html
 EOF
      return $top_targets;
 }
