@@ -1,22 +1,14 @@
-YOURI project
--------------
+Youri::Utils
+------------
 
-YOURI stands for "Youri Offers an Upload & Repository Infrastucture". It aims
-to build tools making management of a coherent set of packages easier.
+Youri utility library.
 
 Description
 -----------
-Managing a package repository involves many tasks, such as keeping packages
-tree tidy, generating packages indexes, synchronising bug report system,
-running coherency checks, checking for available updates, etc...
+YOURI stands for "Youri Offers an Upload & Repository Infrastucture". It aims
+to build tools making management of a coherent set of packages easier.
 
-Instead of a gazillion project-specific scripts, we aim to provide a generic package-format independant framework, so as to build coherent and robust tools.
-
-Components
-----------
-Available software in this release
-- youri-check allows to check packages
-- youri-upload allows to upload packages
+This package provides basic utility functions used by other youri programs.
 
 Installation
 ------------
@@ -24,9 +16,6 @@ To install, just use:
 perl Makefile.PL
 make
 make test
-
-All standard MakeMaker variables are usable, with the addition of SYSCONFDIR to
-specify configuration files destination.
 
 Copyright and License
 ---------------------
@@ -42,4 +31,3 @@ Pascal Terjan <pterjan@zarb.org>
 Damien Krotkine <dams@zarb.org>
 Olivier Thauvin <nanardon@zarb.org>
 Ville Skyttä <ville.skytta@iki.fi>
-

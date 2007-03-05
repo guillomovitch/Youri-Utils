@@ -11,60 +11,67 @@ This module implement some helper functions for all youri applications.
 
 =cut
 
-use base qw(Exporter);
-use Carp;
 use strict;
 use warnings;
+use base qw(Exporter);
+use Carp;
+use UNIVERSAL::require;
+use version; our $VERSION = qv('0.1.0');
 
 our @EXPORT = qw(
     create_instance
-    load
+    load_class
     add2hash
     add2hash_
 );
 
-=head2 create_instance(class => I<$class>, I<%options>)
+=head2 create_instance($class, $config, $options)
 
-Create an instance of a class at runtime.
-I<$class> is the class name.
-I<%options> are passed to the class constructor.
-Returns the class instance.
+Create an instance from a plugin implementing given interface, using given
+configuration and local options.
+Returns a plugin instance, or undef if something went wrong.
 
 =cut
 
 sub create_instance {
-    my ($expected_class, %options) = @_;
+    my ($interface, $config, $options) = @_;
 
-    die 'No expected class given' unless $expected_class;
-    die "No class given, expected derivated class from '$expected_class'" unless $options{class};
+    croak 'No interface given' unless $interface;
+    croak 'No config given' unless $config;
 
-    # extract class from options
-    my $class = $options{class};
-    delete $options{class};
+    my $class = $config->{class};
+    if (!$class) {
+        carp "No class given, can't load plugin";
+        return;
+    }
 
     # ensure loaded
-    load($class);
+    $class->require();
 
     # check interface
-    die "$class is not a $expected_class" unless $class->isa($expected_class);
+    if (!$class->isa($interface)) {
+        carp "$class is not a $interface";
+        return;
+    }
 
-    # instantiate
-    no strict 'refs';
-    return $class->new(%options);
+    return $class->new(
+        $config->{options} ? %{$config->{options}} : (),
+        $options ? %{$options} : (),
+    );
 }
 
-sub load {
+sub load_class {
     my ($class) = @_;
+    carp "Deprecated method, use UNIVERSAL::require now";
 
-    $class .= '.pm';
-    $class =~ s/::/\//g;
-    require $class;
+    $class->require();
 }
 
 # structure helpers
 
 sub add2hash  {
     my ($a, $b) = @_;
+    carp "Deprecated method, to be dropped in next release";
     while (my ($k, $v) = each %{$b || {}}) {
         $a->{$k} ||= $v;
     }
@@ -73,6 +80,7 @@ sub add2hash  {
 
 sub add2hash_ {
     my ($a, $b) = @_;
+    carp "Deprecated method, to be dropped in next release";
     while (my ($k, $v) = each %{$b || {}}) {
         exists $a->{$k} or $a->{$k} = $v;
     }
