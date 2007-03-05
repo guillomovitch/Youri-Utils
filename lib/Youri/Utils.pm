@@ -21,8 +21,6 @@ use version; our $VERSION = qv('0.1.0');
 our @EXPORT = qw(
     create_instance
     load_class
-    add2hash
-    add2hash_
 );
 
 =head2 create_instance($class, $config, $options)
@@ -60,31 +58,17 @@ sub create_instance {
     );
 }
 
+=head2 load_class($class)
+
+Ensure given class is loaded.
+
+=cut
+
 sub load_class {
     my ($class) = @_;
     carp "Deprecated method, use UNIVERSAL::require now";
 
     $class->require();
-}
-
-# structure helpers
-
-sub add2hash  {
-    my ($a, $b) = @_;
-    carp "Deprecated method, to be dropped in next release";
-    while (my ($k, $v) = each %{$b || {}}) {
-        $a->{$k} ||= $v;
-    }
-    return $a;
-}
-
-sub add2hash_ {
-    my ($a, $b) = @_;
-    carp "Deprecated method, to be dropped in next release";
-    while (my ($k, $v) = each %{$b || {}}) {
-        exists $a->{$k} or $a->{$k} = $v;
-    }
-    return $a;
 }
 
 =head1 COPYRIGHT AND LICENSE
