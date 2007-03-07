@@ -16,7 +16,7 @@ use warnings;
 use base qw(Exporter);
 use Carp;
 use UNIVERSAL::require;
-use version; our $VERSION = qv('0.1.0');
+use version; our $VERSION = qv('0.1.1');
 
 our @EXPORT = qw(
     create_instance
