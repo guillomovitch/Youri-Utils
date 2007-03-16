@@ -16,11 +16,13 @@ use warnings;
 use base qw(Exporter);
 use Carp;
 use UNIVERSAL::require;
+use DateTime;
 use version; our $VERSION = qv('0.1.1');
 
 our @EXPORT = qw(
     create_instance
     load_class
+    log_message
 );
 
 =head2 create_instance($class, $config, $options)
@@ -69,6 +71,18 @@ sub load_class {
     carp "Deprecated method, use UNIVERSAL::require now";
 
     $class->require();
+}
+
+=head2 log_message($message, $time, $process)
+
+=cut
+
+sub log_message {
+    my ($message, $time, $process) = @_;
+
+    print DateTime->now()->strftime('[%H:%M:%S] ') if $time;
+    print "$$ " if $process;
+    print "$message\n";
 }
 
 =head1 COPYRIGHT AND LICENSE
