@@ -80,7 +80,8 @@ sub load_class {
 sub log_message {
     my ($message, $time, $process) = @_;
 
-    print DateTime->now()->strftime('[%H:%M:%S] ') if $time;
+    print DateTime->now()->set_timezone('local')->strftime('[%H:%M:%S] ')
+        if $time;
     print "$$ " if $process;
     print "$message\n";
 }
