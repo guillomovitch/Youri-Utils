@@ -6,6 +6,10 @@ WriteMakefile(
     NAME         => 'Youri::Utils',
     VERSION_FROM => 'lib/Youri/Utils.pm',
     AUTHOR       => 'Youri project <youri@zarb.org>',
+    PREREQ_PM    => {
+        DateTime => 0,
+        version  => 0
+    }
 );
 
 sub MY::postamble {
