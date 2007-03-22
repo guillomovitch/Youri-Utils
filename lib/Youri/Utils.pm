@@ -15,14 +15,12 @@ use strict;
 use warnings;
 use base qw(Exporter);
 use Carp;
-use UNIVERSAL::require;
 use DateTime;
 use English qw(-no_match_vars);
 use version; our $VERSION = qv('0.2.0');
 
 our @EXPORT = qw(
     create_instance
-    load_class
     log_message
 );
 
@@ -59,19 +57,6 @@ sub create_instance {
         $config->{options} ? %{$config->{options}} : (),
         $options ? %{$options} : (),
     );
-}
-
-=head2 load_class($class)
-
-Ensure given class is loaded.
-
-=cut
-
-sub load_class {
-    my ($class) = @_;
-    carp "Deprecated method, use UNIVERSAL::require now";
-
-    $class->require();
 }
 
 =head2 log_message($message, $time, $process)
