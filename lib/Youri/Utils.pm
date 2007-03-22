@@ -17,6 +17,7 @@ use base qw(Exporter);
 use Carp;
 use UNIVERSAL::require;
 use DateTime;
+use English qw(-no_match_vars);
 use version; our $VERSION = qv('0.2.0');
 
 our @EXPORT = qw(
@@ -82,7 +83,7 @@ sub log_message {
 
     print DateTime->now()->set_time_zone('local')->strftime('[%H:%M:%S] ')
         if $time;
-    print "$$ " if $process;
+    print "$PID " if $process;
     print "$message\n";
 }
 
