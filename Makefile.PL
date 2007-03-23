@@ -7,8 +7,9 @@ WriteMakefile(
     VERSION_FROM => 'lib/Youri/Utils.pm',
     AUTHOR       => 'Youri project <youri@zarb.org>',
     PREREQ_PM    => {
-        DateTime => 0,
-        version  => 0
+        'UNIVERSAL::require' => 0,
+        'DateTime'           => 0,
+        'version'            => 0
     }
 );
 

@@ -17,6 +17,7 @@ use base qw(Exporter);
 use Carp;
 use DateTime;
 use English qw(-no_match_vars);
+use UNIVERSAL::require;
 use version; our $VERSION = qv('0.2.0');
 
 our @EXPORT = qw(
