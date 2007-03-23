@@ -18,7 +18,7 @@ use Carp;
 use DateTime;
 use English qw(-no_match_vars);
 use UNIVERSAL::require;
-use version; our $VERSION = qv('0.2.0');
+use version; our $VERSION = qv('0.2.1');
 
 our @EXPORT = qw(
     create_instance
