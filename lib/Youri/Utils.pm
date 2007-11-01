@@ -46,7 +46,8 @@ sub create_instance {
     }
 
     # ensure loaded
-    $class->require();
+    $class->require() 
+        or croak "Can't found class $class";
 
     # check interface
     if (!$class->isa($interface)) {
