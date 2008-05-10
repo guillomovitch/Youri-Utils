@@ -18,7 +18,7 @@ use Carp;
 use DateTime;
 use English qw(-no_match_vars);
 use UNIVERSAL::require;
-use version; our $VERSION = qv('0.2.1');
+use version; our $VERSION = qv('0.3.0');
 use Youri::Error::WrongClass;
 use Youri::Error::ClassNotFound;
 
