@@ -19,6 +19,8 @@ use DateTime;
 use English qw(-no_match_vars);
 use UNIVERSAL::require;
 use version; our $VERSION = qv('0.2.1');
+use Youri::Error::WrongClass;
+use Youri::Error::ClassNotFound;
 
 our @EXPORT = qw(
     create_instance
@@ -36,24 +38,26 @@ Returns a plugin instance, or undef if something went wrong.
 sub create_instance {
     my ($interface, $config, $options) = @_;
 
-    croak 'No interface given' unless $interface;
-    croak 'No config given' unless $config;
+    throw Youri::Error::Coding(
+        "No interface given"
+    ) unless $interface;
+
+    throw Youri::Error::Coding(
+        "No configuration given"
+    ) unless $config;
 
     my $class = $config->{class};
-    if (!$class) {
-        carp "No class given, can't load plugin";
-        return;
-    }
+    throw Youri::Error::Coding(
+        "No class given"
+    ) unless $class;
 
     # ensure loaded
-    $class->require() 
-        or croak "Can't found class $class";
+    throw Youri::Error::ClassNotFound("class $class not found")
+        unless $class->require();
 
     # check interface
-    if (!$class->isa($interface)) {
-        carp "$class is not a $interface";
-        return;
-    }
+    throw Youri::Error::WrongClass("class $class doesn't implement $interface") 
+        unless $class->isa($interface);
 
     return $class->new(
         $config->{options} ? %{$config->{options}} : (),
